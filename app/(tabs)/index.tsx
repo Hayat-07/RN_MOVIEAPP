@@ -1,15 +1,77 @@
-import { Link } from "expo-router";
-import { Text, View, } from "react-native";
+import { icons } from "@/constants/icons";
+import { Image, ScrollView, Text, TextInput, View } from "react-native";
+
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { LinearGradient } from "expo-linear-gradient";
+
+
 
 export default function Index() {
   return (
     <View
-      className="flex-1 items-center justify-center bg-slate-900 "
+      className="flex-1  relative"
     >
-      <Text className="text-white text-lg text-wrap">Index page / Home</Text>
-      <Link href="/movies/1">
-        <Text className="text-blue-500">Go to Movie 1</Text>
-      </Link>
+      <LinearGradient
+        colors={["#5900B2", "black"]} // from Tailwind's indigo-600 to purple-600
+        start={{ y: 0 }}   // top-left
+        end={{ y: 1 }}   // bottom-right
+        className="flex-1 items-center justify-center p-4 "
+      >
+        <Image source={icons.logo} className=" w-12 h-12 " />
+
+        <View className="flex-row gap-3 w-full items-center border-2 border-white rounded-full px-8 py-2 mt-4">
+          <FontAwesome name="search" size={20} color="white" />
+          <TextInput
+            placeholder="Search"
+            placeholderTextColor="white"
+          />
+        </View>
+
+
+        <ScrollView className="flex-1 w-full mt-4">
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+          <Text className="text-white">Welcome to the Movie App</Text>
+        </ScrollView>
+      </LinearGradient>
+
+      {/* <Image source={bgImage} className="absolute w-full z-0" /> */}
+
+
 
     </View>
   );
