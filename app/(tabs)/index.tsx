@@ -29,13 +29,13 @@ export default function Index() {
 
   return (
     <View
-      className="flex-1  relative"
+      className="flex-1   relative"
     >
       <LinearGradient
         colors={["#5900B2", "black"]} // from Tailwind's indigo-600 to purple-600
         start={{ y: 0 }}   // top-left
         end={{ y: 1 }}   // bottom-right
-        className="flex-1 items-center justify-center p-4 "
+        className="flex-1  items-center justify-center   p-4  "
       >
 
 
@@ -46,15 +46,7 @@ export default function Index() {
 
 
 
-        <Image source={icons.logo} className=" w-12 h-12 " />
-        <View className="flex-row gap-3 w-full items-center border-2 border-white rounded-full px-8 py-2 mt-4">
-          <FontAwesome name="search" size={20} color="white" />
-          <TextInput
-            placeholder="Search"
-            placeholderTextColor="white"
-          />
-        </View>
-
+        <Image source={icons.logo} className=" w-12 h-12 my-6" />
 
 
         {
@@ -64,11 +56,11 @@ export default function Index() {
           ) : moviesError ? (<Text className="text-white">Error fetching movies: {moviesError.message}</Text>
 
           ) : moviesData ? (
-            <ScrollView className="flex-1 w-full mt-4">
+            <ScrollView contentContainerClassName=" flex-row flex-wrap gap-[12px]  items-center justify-center rounded-md ">
               {
                 moviesData.map(movie => (
                   // console.log(movie.poster_path),
-                  <MovieCard key={movie.id} id={movie.id} title={movie.title} poster_path={movie.poster_path} />
+                  <MovieCard key={movie.id} id={movie.id} title={movie.title} poster_path={movie.poster_path} star={movie.vote_average } year={movie.release_date.split('-')[0]}  />
                 ))
               }
             </ScrollView>
