@@ -4,10 +4,11 @@ import useFetch from "@/service/useFatch";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Image, Text, TextInput, View } from "react-native";
 
+
 import MovieCard from "@/components/MovieCard";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { LinearGradient } from "expo-linear-gradient";
-
+import { updateSearchCount } from "@/service/appwrite";
 
 
 export default function search() {
@@ -25,13 +26,18 @@ export default function search() {
     }), false);
 
     useEffect(() => {
+
+        updateSearchCount(searchQuery,moviesData);
         const fnc = setTimeout(async () => {
             if (searchQuery.trim()) {
                 await moviesRefetch();
-            } else {
-                moviesReset();
+                if (moviesData.length > 0 && moviesData?.[0]) {
+                    await updateSearchCount(searchQuery, moviesData[0]);
+                } else {
+                    moviesReset();
+                }
             }
-        }, 500);
+        }, 1000);
 
 
           return () => clearTimeout(fnc);
@@ -85,14 +91,7 @@ export default function search() {
                     ) : moviesError ? (<Text className="text-white">Error fetching movies: {moviesError.message}</Text>
 
                     ) : moviesData ? (
-                        // <ScrollView contentContainerClassName=" flex-row flex-wrap gap-[12px]  items-center justify-center rounded-md ">
-                        //   {
-                        //     moviesData.map(movie => (
-                        //       // console.log(movie.poster_path),
-                        //       <MovieCard key={movie.id} id={movie.id} title={movie.title} poster_path={movie.poster_path} />
-                        //     ))
-                        //   }
-                        // </ScrollView>
+                        
                         <FlatList
                             data={moviesData}
                             renderItem={({ item }) => (
