@@ -1,11 +1,12 @@
 import { icons } from "@/constants/icons";
 import fetchMovies from "@/service/Api";
 import useFetch from "@/service/useFatch";
-import { ActivityIndicator, Image, ScrollView, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Image, ScrollView, Text, View } from "react-native";
 
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { LinearGradient } from "expo-linear-gradient";
 import MovieCard from "@/components/MovieCard";
+import TrendingMovieCard from "@/components/TrendingMovieCard";
+import { getTrendingMovies } from "@/service/appwrite";
+import { LinearGradient } from "expo-linear-gradient";
 
 
 
@@ -22,6 +23,12 @@ export default function Index() {
   } = useFetch(() => fetchMovies({
     query: ''
   }), true);
+
+  const {
+    data: trendingMovies,
+    loading: trendingLoading,
+    error: trendingError,
+  } = useFetch(getTrendingMovies);
 
 
 
@@ -46,29 +53,57 @@ export default function Index() {
 
 
 
-        <Image source={icons.logo} className=" w-12 h-12 my-6" />
+        <Image source={icons.logo} className=" w-12 h-12 my-2" />
+        <View className="items-center justify-center mb-4">
+          <Text className="text-white text-3xl font-bold">Welcome to MovieApp</Text>
+          <Text className="text-white text-sm mt-2">Discover movies, TV shows, and more.</Text>
+        </View>
 
 
-        {
-          moviesLoading ? (
-            <ActivityIndicator size="large" color="white" className="mt-4"
-            />
-          ) : moviesError ? (<Text className="text-white">Error fetching movies: {moviesError.message}</Text>
+        <ScrollView>
 
-          ) : moviesData ? (
-            <ScrollView contentContainerClassName=" flex-row flex-wrap gap-[12px]  items-center justify-center rounded-md ">
+
+          <View className=" flex flex-col items-start justify-center mb-4 w-full">
+
+            <Text className=" text-sm  text-violet-300 font-bold">Trending movies.</Text>
+            <ScrollView horizontal={true} contentContainerClassName=" rounded-md mt-2 gap-4  items-center justify-center ">
               {
-                moviesData.map(movie => (
-                  // console.log(movie.poster_path),
-                  <MovieCard key={movie.id} id={movie.id} title={movie.title} poster_path={movie.poster_path} star={movie.vote_average } year={movie.release_date.split('-')[0]}  />
+                trendingMovies?.map(movie => (
+                  // console.log(movie),
+                  <TrendingMovieCard key={movie.$id} movie={movie} />
                 ))
               }
             </ScrollView>
 
-          ) : (
-            <Text>No movies found</Text>
-          )
-        }
+          </View>
+
+
+
+          {
+            moviesLoading ? (
+              <ActivityIndicator size="large" color="white" className="mt-4"
+              />
+            ) : moviesError ? (<Text className="text-white">Error fetching movies: {moviesError.message}</Text>
+
+            ) : moviesData ? (
+              <ScrollView contentContainerClassName=" flex-row flex-wrap gap-[12px]  items-center justify-center rounded-md ">
+                {
+                  moviesData.map(movie => (
+                    // console.log(movie.poster_path),
+                    <MovieCard key={movie.id} id={movie.id} title={movie.title} poster_path={movie.poster_path} star={movie.vote_average} year={movie.release_date.split('-')[0]} />
+                  ))
+                }
+              </ScrollView>
+
+            ) : (
+              <Text>No movies found</Text>
+            )
+          }
+
+
+
+        </ScrollView>
+
 
 
 

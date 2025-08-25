@@ -6,9 +6,9 @@ import { ActivityIndicator, FlatList, Image, Text, TextInput, View } from "react
 
 
 import MovieCard from "@/components/MovieCard";
+import { updateSearchCount } from "@/service/appwrite";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { LinearGradient } from "expo-linear-gradient";
-import { updateSearchCount } from "@/service/appwrite";
 
 
 export default function search() {
@@ -27,22 +27,23 @@ export default function search() {
 
     useEffect(() => {
 
-        updateSearchCount(searchQuery,moviesData);
         const fnc = setTimeout(async () => {
             if (searchQuery.trim()) {
                 await moviesRefetch();
-                if (moviesData.length > 0 && moviesData?.[0]) {
-                    await updateSearchCount(searchQuery, moviesData[0]);
-                } else {
-                    moviesReset();
-                }
+
             }
-        }, 1000);
-
-
-          return () => clearTimeout(fnc);
+        }, 700);
+        return () => clearTimeout(fnc);
 
     }, [searchQuery])
+
+    useEffect(() => {
+        if (moviesData?.length > 0 && moviesData?.[0]) {
+            updateSearchCount(searchQuery, moviesData[0]);
+        } else {
+            moviesReset();
+        }
+    }, [moviesData])
 
 
 
@@ -91,7 +92,7 @@ export default function search() {
                     ) : moviesError ? (<Text className="text-white">Error fetching movies: {moviesError.message}</Text>
 
                     ) : moviesData ? (
-                        
+
                         <FlatList
                             data={moviesData}
                             renderItem={({ item }) => (
