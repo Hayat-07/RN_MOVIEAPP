@@ -47,12 +47,6 @@ export default function Index() {
 
 
 
-
-
-
-
-
-
         <Image source={icons.logo} className=" w-12 h-12 my-2" />
         <View className="items-center justify-center mb-4">
           <Text className="text-white text-3xl font-bold">Welcome to MovieApp</Text>
@@ -103,17 +97,6 @@ export default function Index() {
 
 
         </ScrollView>
-
-
-
-
-
-
-
-
-
-
-
 
 
 

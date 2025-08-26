@@ -1,8 +1,8 @@
 
-import React from 'react';
 import { useRouter } from "expo-router";
-  
-import { Image, Pressable, Text, Touchable, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 const TrendingMovieCard = ({ movie }) => {
   const router = useRouter();
@@ -13,7 +13,7 @@ const TrendingMovieCard = ({ movie }) => {
         key={movie.movie_id}
         onPress={() => {
           // Navigate to the movie details screen
-          router.push(`/movies/${movie.$id}`);
+          router.push(`/movies/${movie.movie_id}`);
         }}
       >
         <Image
